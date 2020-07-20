@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>b122576b-5162-434b-af52-e6571b64a566</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TLRW\**" />
+    <Content Remove="TLRW\**" />
+    <EmbeddedResource Remove="TLRW\**" />
+    <None Remove="TLRW\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Discord.Net" Version="2.1.1" />
+    <PackageReference Include="GitHubJwt" Version="0.0.4" />
+    <PackageReference Include="itext7" Version="7.1.10" />
+    <PackageReference Include="itext7.pdfhtml" Version="2.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.13.1" />
+    <PackageReference Include="Octokit" Version="0.46.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Data\Bot.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="alfred-discord.2020-04-01.private-key.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+</Project>
