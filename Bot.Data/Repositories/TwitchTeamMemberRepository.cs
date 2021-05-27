@@ -69,30 +69,9 @@ namespace Bot.Data.Repositories
 
         public async  Task<List<TwitchTeamMember>> GetTeamAsync(ulong guildId)
         {
-            QueryDefinition query = new QueryDefinition(
-               "select * from s where s.Item.GuildId = @GuildId ")
-               .WithParameter("@GuildId", guildId);
-            FeedIterator<CosmosObject<TwitchTeamMember>> resultSet = 
-                _cosmosContainer.GetItemQueryIterator<CosmosObject<TwitchTeamMember>>(
-                    query,
-                    requestOptions: new QueryRequestOptions()
-                    {
-                        PartitionKey = new PartitionKey(_objectType)
-                    }
-                );
+            var allTeams = await GetAllTeamsAsync();
 
-
-            var team = new List<TwitchTeamMember>();
-            while (resultSet.HasMoreResults)
-            {
-                var currentResultSet = await resultSet.ReadNextAsync();
-                foreach (var member in currentResultSet)
-                {
-                    team.Add(member.Item);
-                }
-            }
-            return team;
-
+            return allTeams.Where(x => x.GuildId == guildId.ToString()).ToList();
         }
 
         public async Task SaveAsync(TwitchTeamMember teamMember)
