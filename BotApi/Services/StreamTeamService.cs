@@ -162,6 +162,7 @@ namespace BotApi.Services
             _timer.Stop();
             return Task.CompletedTask;
         }
+
         private async Task UpdateMessageAsync(ulong guildId, ulong channelId, ulong messageId, StreamModel streamModel)
         {
             try

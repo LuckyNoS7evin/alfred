@@ -115,17 +115,16 @@ namespace BotApi.HttpServices
                 appToken = await GetTokenAsync();
             }
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.twitch.tv/kraken/teams/{name}");
-            request.Headers.Add("Authorization", $"Oauth {appToken}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.twitch.tv/helix/teams?name={name}");
+            request.Headers.Add("Authorization", $"Bearer {appToken}");
             request.Headers.Add("Client-ID", _config.TwitchClientId);
-            request.Headers.Add("Accept", "application/vnd.twitchtv.v5+json");
             try
             {
                 var result = await _httpClient.SendAsync(request);
                 if (result.IsSuccessStatusCode)
                 {
-                    var clipResult = JsonSerializer.Deserialize<TeamModel>(await result.Content.ReadAsStringAsync());
-                    return clipResult.Users.Select(x => x.Id).ToList();
+                    var clipResult = JsonSerializer.Deserialize<TeamsModel>(await result.Content.ReadAsStringAsync());
+                    return clipResult.Data[0].Users.Select(x => x.Id).ToList();
                 }
                 else
                 {
