@@ -84,6 +84,14 @@ namespace BotApi.Services
                         _guildTeamMembers.TryAdd(ulong.Parse(team.GuildId), teamMembers);
                     }
                 }
+
+                foreach (var key in _guildTeamMembers.Keys)
+                {
+                    if (_guildTeamMembers[key] == null)
+                    {
+                        _guildTeamMembers.TryRemove(key, out var removed);
+                    }
+                }
             }
             catch (Exception ex)
             {

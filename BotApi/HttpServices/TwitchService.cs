@@ -123,7 +123,8 @@ namespace BotApi.HttpServices
                 var result = await _httpClient.SendAsync(request);
                 if (result.IsSuccessStatusCode)
                 {
-                    var clipResult = JsonSerializer.Deserialize<TeamsModel>(await result.Content.ReadAsStringAsync());
+                    var resultString = await result.Content.ReadAsStringAsync();
+                    var clipResult = JsonSerializer.Deserialize<TeamsModel>(resultString);
                     return clipResult.Data[0].Users.Select(x => x.Id).ToList();
                 }
                 else
