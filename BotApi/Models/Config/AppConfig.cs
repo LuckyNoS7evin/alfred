@@ -7,6 +7,7 @@
         public string TwitchClientId { get; set; }
         public string TwitchSecret { get; set; }
         public string TwitchRedirectUrl { get; set; }
+        public string EventSubSecret { get; set; }
         public Bot[] Bots { get; set; }
     }
 }

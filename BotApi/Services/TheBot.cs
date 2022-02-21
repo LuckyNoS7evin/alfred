@@ -34,6 +34,7 @@ namespace BotApi.Services
 
         public ValueTask DisposeAsync()
         {
+            GC.SuppressFinalize(this);
             return new ValueTask(Task.CompletedTask);
         }
 
@@ -46,9 +47,18 @@ namespace BotApi.Services
                 await bot.LoginAsync(Discord.TokenType.Bot, botConfig.DiscordToken);
                 await bot.StartAsync();
                 bot.MessageReceived += Bot_MessageReceived;
+                //bot.GuildMemberUpdated += Bot_GuildMemberUpdated;
             }
             _logger.LogInformation("started");
         }
+
+        //private Task Bot_GuildMemberUpdated(Discord.WebSocket.SocketGuildUser arg1, Discord.WebSocket.SocketGuildUser arg2)
+        //{
+        //    if(arg1.Guild.Id == 609783269503795220)
+        //    {
+                  
+        //    }
+        //}
 
         private async Task Bot_MessageReceived(Discord.WebSocket.SocketMessage arg)
         {
